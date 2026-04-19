@@ -5,43 +5,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Currere — The Method</title>
 <style>
-  html, body { margin: 0; padding: 0; background: #0d1f3c; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; height: auto; }
+  html, body { margin: 0; padding: 0; background: #0d1f3c; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; height: 100%; overflow: hidden; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  .wrap { padding: 1rem 0 1.5rem; }
-  .hint { text-align: center; font-size: 12px; color: rgba(255,255,255,0.35); margin: 0 0 0.4rem; }
-  .stage { position: relative; width: 100%; max-width: 560px; margin: 0 auto; background: #0d1f3c; border-radius: 12px; overflow: hidden; }
+  .wrap { padding: 0.4rem 0 0; }
+  .hint { text-align: center; font-size: 13px; color: rgba(255,255,255,0.35); margin: 0 0 0.3rem; }
+  .stage { position: relative; width: 100%; background: #0d1f3c; }
 
   .float-panel {
     position: absolute;
-    background: rgba(8,18,38,0.95);
+    background: rgba(8,18,38,0.93);
     border: 0.5px solid rgba(255,255,255,0.13);
     border-radius: 8px;
-    padding: 11px 13px;
-    width: 168px;
+    padding: 12px 14px;
+    width: 200px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s, transform 0.25s;
     transform: translateY(4px);
-    z-index: 10;
   }
   .float-panel.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  .float-panel h3 { margin: 0 0 5px; font-size: 11px; font-weight: 500; line-height: 1.3; letter-spacing: 0.02em; }
-  .float-panel p { margin: 0 0 6px; font-size: 10px; line-height: 1.6; color: rgba(255,255,255,0.82); }
+  .float-panel h3 { margin: 0 0 6px; font-size: 12px; font-weight: 500; line-height: 1.3; letter-spacing: 0.02em; }
+  .float-panel p { margin: 0 0 6px; font-size: 11px; line-height: 1.6; color: rgba(255,255,255,0.82); }
   .float-panel p:last-child { margin: 0; }
-  .float-panel .quote { font-size: 9.5px; line-height: 1.55; color: rgba(255,255,255,0.52); font-style: italic; border-left: 2px solid rgba(255,255,255,0.22); padding-left: 7px; }
+  .float-panel .quote { font-size: 10.5px; line-height: 1.55; color: rgba(255,255,255,0.52); font-style: italic; border-left: 2px solid rgba(255,255,255,0.22); padding-left: 8px; }
 
-  #fp-regressive  { top: 12px; left: 12px; border-color: rgba(180,210,240,0.22); }
+  #fp-regressive  { top: 14px; left: 14px; border-color: rgba(180,210,240,0.22); }
   #fp-regressive h3 { color: rgba(180,210,240,0.95); }
-  #fp-progressive { top: 12px; right: 12px; border-color: rgba(160,220,190,0.22); }
+  #fp-progressive { top: 14px; right: 14px; border-color: rgba(160,220,190,0.22); }
   #fp-progressive h3 { color: rgba(160,220,190,0.95); }
-  #fp-analytical  { bottom: 12px; right: 12px; border-color: rgba(220,190,140,0.22); }
+  #fp-analytical  { bottom: 14px; right: 14px; border-color: rgba(220,190,140,0.22); }
   #fp-analytical h3 { color: rgba(220,190,140,0.95); }
-  #fp-synthetical { bottom: 12px; left: 12px; border-color: rgba(190,170,230,0.22); }
+  #fp-synthetical { bottom: 14px; left: 14px; border-color: rgba(190,170,230,0.22); }
   #fp-synthetical h3 { color: rgba(190,170,230,0.95); }
 
-  @keyframes pulse-ring { 0% { r: 95; opacity: .7; } 100% { r: 148; opacity: 0; } }
-  @keyframes pulse-ring-sm { 0% { r: 70; opacity: .5; } 100% { r: 118; opacity: 0; } }
-  .anim-ring { fill: none; stroke-width: .8; stroke-dasharray: 4 5; pointer-events: none; }
+  @keyframes pulse-ring { 0% { r: 120; opacity: .7; } 100% { r: 185; opacity: 0; } }
+  @keyframes pulse-ring-sm { 0% { r: 88; opacity: .5; } 100% { r: 148; opacity: 0; } }
+  .anim-ring { fill: none; stroke-width: 1; stroke-dasharray: 5 6; pointer-events: none; }
   .anim-ring.active-1 { animation: pulse-ring 2.2s ease-out infinite; }
   .anim-ring.active-2 { animation: pulse-ring 2.2s ease-out .7s infinite; }
   .anim-ring-sm.active-1 { animation: pulse-ring-sm 2.2s ease-out .35s infinite; }
@@ -76,7 +75,7 @@
       <p class="quote">"The synthetic totalizes the fragments of educational experience and places this integrated understanding into the larger political and cultural web." — Pinar, 1975</p>
     </div>
 
-    <svg width="100%" viewBox="0 0 560 460" role="img" aria-label="Currere: four overlapping rings">
+    <svg id="main-svg" width="100%" viewBox="0 0 800 660" role="img" aria-label="Currere: four overlapping rings representing regressive, progressive, analytical, and synthetical moments">
       <defs>
         <pattern id="grid-sm" width="20" height="20" patternUnits="userSpaceOnUse">
           <path d="M20 0H0V20" fill="none" stroke="#1e3a5f" stroke-width=".4" opacity=".6"/>
@@ -91,72 +90,79 @@
         </radialGradient>
       </defs>
 
-      <rect width="560" height="460" fill="#0d1f3c"/>
-      <rect width="560" height="460" fill="url(#grid-sm)"/>
-      <rect width="560" height="460" fill="url(#grid-lg)"/>
-      <circle cx="280" cy="230" r="138" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width=".8" stroke-dasharray="4 6"/>
+      <rect width="800" height="660" fill="#0d1f3c"/>
+      <rect width="800" height="660" fill="url(#grid-sm)"/>
+      <rect width="800" height="660" fill="url(#grid-lg)"/>
+      <circle cx="400" cy="330" r="200" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="5 7"/>
 
       <!-- Pulse rings -->
-      <circle id="pulse-r-1"  class="anim-ring"    cx="210" cy="185" r="95" stroke="rgba(180,210,240,0)"/>
-      <circle id="pulse-r-2"  class="anim-ring"    cx="210" cy="185" r="95" stroke="rgba(180,210,240,0)"/>
-      <circle id="pulse-r-sm" class="anim-ring-sm" cx="210" cy="185" r="70" stroke="rgba(180,210,240,0)"/>
-      <circle id="pulse-p-1"  class="anim-ring"    cx="355" cy="185" r="95" stroke="rgba(160,220,190,0)"/>
-      <circle id="pulse-p-2"  class="anim-ring"    cx="355" cy="185" r="95" stroke="rgba(160,220,190,0)"/>
-      <circle id="pulse-p-sm" class="anim-ring-sm" cx="355" cy="185" r="70" stroke="rgba(160,220,190,0)"/>
-      <circle id="pulse-a-1"  class="anim-ring"    cx="335" cy="295" r="95" stroke="rgba(220,190,140,0)"/>
-      <circle id="pulse-a-2"  class="anim-ring"    cx="335" cy="295" r="95" stroke="rgba(220,190,140,0)"/>
-      <circle id="pulse-a-sm" class="anim-ring-sm" cx="335" cy="295" r="70" stroke="rgba(220,190,140,0)"/>
-      <circle id="pulse-s-1"  class="anim-ring"    cx="210" cy="290" r="88" stroke="rgba(190,170,230,0)"/>
-      <circle id="pulse-s-2"  class="anim-ring"    cx="210" cy="290" r="88" stroke="rgba(190,170,230,0)"/>
-      <circle id="pulse-s-sm" class="anim-ring-sm" cx="210" cy="290" r="70" stroke="rgba(190,170,230,0)"/>
+      <circle id="pulse-r-1"  class="anim-ring"    cx="300" cy="265" r="120" stroke="rgba(180,210,240,0)"/>
+      <circle id="pulse-r-2"  class="anim-ring"    cx="300" cy="265" r="120" stroke="rgba(180,210,240,0)"/>
+      <circle id="pulse-r-sm" class="anim-ring-sm" cx="300" cy="265" r="88"  stroke="rgba(180,210,240,0)"/>
+      <circle id="pulse-p-1"  class="anim-ring"    cx="508" cy="265" r="120" stroke="rgba(160,220,190,0)"/>
+      <circle id="pulse-p-2"  class="anim-ring"    cx="508" cy="265" r="120" stroke="rgba(160,220,190,0)"/>
+      <circle id="pulse-p-sm" class="anim-ring-sm" cx="508" cy="265" r="88"  stroke="rgba(160,220,190,0)"/>
+      <circle id="pulse-a-1"  class="anim-ring"    cx="480" cy="420" r="120" stroke="rgba(220,190,140,0)"/>
+      <circle id="pulse-a-2"  class="anim-ring"    cx="480" cy="420" r="120" stroke="rgba(220,190,140,0)"/>
+      <circle id="pulse-a-sm" class="anim-ring-sm" cx="480" cy="420" r="88"  stroke="rgba(220,190,140,0)"/>
+      <circle id="pulse-s-1"  class="anim-ring"    cx="300" cy="415" r="112" stroke="rgba(190,170,230,0)"/>
+      <circle id="pulse-s-2"  class="anim-ring"    cx="300" cy="415" r="112" stroke="rgba(190,170,230,0)"/>
+      <circle id="pulse-s-sm" class="anim-ring-sm" cx="300" cy="415" r="88"  stroke="rgba(190,170,230,0)"/>
 
-      <!-- Four overlapping rings — using screen blend-mode equivalent via mix-blend-mode -->
-      <g style="mix-blend-mode: screen">
-        <circle id="r-regressive" cx="210" cy="185" r="112"
-          fill="rgba(30,80,120,0.45)" stroke="rgba(180,210,240,0.55)" stroke-width=".8"
-          style="cursor:pointer;transition:fill 0.2s" onclick="sel('regressive')"/>
-        <circle id="r-progressive" cx="355" cy="185" r="112"
-          fill="rgba(20,90,70,0.45)" stroke="rgba(160,220,190,0.5)" stroke-width=".8"
-          style="cursor:pointer;transition:fill 0.2s" onclick="sel('progressive')"/>
-        <circle id="r-analytical" cx="335" cy="295" r="112"
-          fill="rgba(80,50,20,0.45)" stroke="rgba(220,190,140,0.5)" stroke-width=".8"
-          style="cursor:pointer;transition:fill 0.2s" onclick="sel('analytical')"/>
-        <circle id="r-synthetical" cx="210" cy="290" r="105"
-          fill="rgba(60,30,90,0.45)" stroke="rgba(190,170,230,0.5)" stroke-width=".8"
-          style="cursor:pointer;transition:fill 0.2s" onclick="sel('synthetical')"/>
-      </g>
+      <!-- Four overlapping rings -->
+      <circle id="r-regressive" cx="300" cy="265" r="160"
+        fill="rgba(30,80,120,0.18)" stroke="rgba(180,210,240,0.55)" stroke-width=".8"
+        style="cursor:pointer;transition:fill 0.2s" onclick="sel('regressive')"/>
+      <circle id="r-progressive" cx="508" cy="265" r="160"
+        fill="rgba(20,90,70,0.18)" stroke="rgba(160,220,190,0.5)" stroke-width=".8"
+        style="cursor:pointer;transition:fill 0.2s" onclick="sel('progressive')"/>
+      <circle id="r-analytical" cx="480" cy="420" r="160"
+        fill="rgba(80,50,20,0.18)" stroke="rgba(220,190,140,0.5)" stroke-width=".8"
+        style="cursor:pointer;transition:fill 0.2s" onclick="sel('analytical')"/>
+      <circle id="r-synthetical" cx="300" cy="415" r="150"
+        fill="rgba(60,30,90,0.18)" stroke="rgba(190,170,230,0.5)" stroke-width=".8"
+        style="cursor:pointer;transition:fill 0.2s" onclick="sel('synthetical')"/>
 
       <!-- Centre glow -->
-      <circle cx="278" cy="235" r="80" fill="url(#centre-glow)"/>
+      <circle cx="396" cy="338" r="115" fill="url(#centre-glow)"/>
 
       <!-- Labels -->
-      <text x="138" y="108" text-anchor="middle" style="font-size:11px;font-weight:500;fill:rgba(180,210,240,0.7);font-family:Arial,sans-serif;cursor:pointer" onclick="sel('regressive')">Regressive</text>
-      <text x="428" y="108" text-anchor="middle" style="font-size:11px;font-weight:500;fill:rgba(160,220,190,0.7);font-family:Arial,sans-serif;cursor:pointer" onclick="sel('progressive')">Progressive</text>
-      <text x="418" y="388" text-anchor="middle" style="font-size:11px;font-weight:500;fill:rgba(220,190,140,0.7);font-family:Arial,sans-serif;cursor:pointer" onclick="sel('analytical')">Analytical</text>
-      <text x="128" y="388" text-anchor="middle" style="font-size:11px;font-weight:500;fill:rgba(190,170,230,0.7);font-family:Arial,sans-serif;cursor:pointer" onclick="sel('synthetical')">Synthetical</text>
+      <text x="198" y="148" text-anchor="middle"
+        style="font-size:14px;font-weight:500;fill:rgba(180,210,240,0.7);font-family:Arial,sans-serif;cursor:pointer"
+        onclick="sel('regressive')">Regressive</text>
+      <text x="614" y="148" text-anchor="middle"
+        style="font-size:14px;font-weight:500;fill:rgba(160,220,190,0.7);font-family:Arial,sans-serif;cursor:pointer"
+        onclick="sel('progressive')">Progressive</text>
+      <text x="596" y="558" text-anchor="middle"
+        style="font-size:14px;font-weight:500;fill:rgba(220,190,140,0.7);font-family:Arial,sans-serif;cursor:pointer"
+        onclick="sel('analytical')">Analytical</text>
+      <text x="184" y="558" text-anchor="middle"
+        style="font-size:14px;font-weight:500;fill:rgba(190,170,230,0.7);font-family:Arial,sans-serif;cursor:pointer"
+        onclick="sel('synthetical')">Synthetical</text>
 
       <!-- Centre currere -->
-      <text x="278" y="241" text-anchor="middle" style="font-size:20px;font-weight:500;fill:rgba(255,255,255,0.92);font-family:Arial,sans-serif;letter-spacing:0.14em">currere</text>
+      <text x="396" y="346" text-anchor="middle"
+        style="font-size:28px;font-weight:500;fill:rgba(255,255,255,0.92);font-family:Arial,sans-serif;letter-spacing:0.14em">currere</text>
 
       <!-- Blueprint dots -->
-      <circle cx="60"  cy="200" r="1.5" fill="rgba(255,255,255,0.15)"/>
-      <circle cx="490" cy="150" r="1.5" fill="rgba(255,255,255,0.15)"/>
-      <circle cx="500" cy="340" r="1.5" fill="rgba(255,255,255,0.12)"/>
-      <circle cx="50"  cy="340" r="1.5" fill="rgba(255,255,255,0.12)"/>
-      <circle cx="280" cy="430" r="1.5" fill="rgba(255,255,255,0.12)"/>
-      <circle cx="280" cy="30"  r="1.5" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="80"  cy="280" r="2" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="710" cy="200" r="2" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="720" cy="480" r="2" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="70"  cy="460" r="2" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="400" cy="620" r="2" fill="rgba(255,255,255,0.12)"/>
+      <circle cx="400" cy="50"  r="2" fill="rgba(255,255,255,0.12)"/>
     </svg>
   </div>
 </div>
 
 <script>
 const data={
-  regressive:{fill:"rgba(30,80,140,0.6)",stroke:"rgba(180,210,240,0.9)",pulse:"rgba(180,210,240,0.65)",prefix:"r"},
-  progressive:{fill:"rgba(20,100,70,0.6)",stroke:"rgba(160,230,190,0.9)",pulse:"rgba(160,230,190,0.65)",prefix:"p"},
-  analytical:{fill:"rgba(100,65,20,0.6)",stroke:"rgba(230,200,140,0.9)",pulse:"rgba(230,200,140,0.65)",prefix:"a"},
-  synthetical:{fill:"rgba(70,35,110,0.6)",stroke:"rgba(200,175,240,0.9)",pulse:"rgba(200,175,240,0.65)",prefix:"s"}
+  regressive:{fill:"rgba(30,80,140,0.38)",stroke:"rgba(180,210,240,0.9)",pulse:"rgba(180,210,240,0.65)",prefix:"r"},
+  progressive:{fill:"rgba(20,100,70,0.38)",stroke:"rgba(160,230,190,0.9)",pulse:"rgba(160,230,190,0.65)",prefix:"p"},
+  analytical:{fill:"rgba(100,65,20,0.38)",stroke:"rgba(230,200,140,0.9)",pulse:"rgba(230,200,140,0.65)",prefix:"a"},
+  synthetical:{fill:"rgba(70,35,110,0.38)",stroke:"rgba(200,175,240,0.9)",pulse:"rgba(200,175,240,0.65)",prefix:"s"}
 };
-const defaultFills={regressive:"rgba(30,80,120,0.45)",progressive:"rgba(20,90,70,0.45)",analytical:"rgba(80,50,20,0.45)",synthetical:"rgba(60,30,90,0.45)"};
+const defaultFills={regressive:"rgba(30,80,120,0.18)",progressive:"rgba(20,90,70,0.18)",analytical:"rgba(80,50,20,0.18)",synthetical:"rgba(60,30,90,0.18)"};
 const defaultStrokes={regressive:"rgba(180,210,240,0.55)",progressive:"rgba(160,220,190,0.5)",analytical:"rgba(220,190,140,0.5)",synthetical:"rgba(190,170,230,0.5)"};
 
 function clearPulses(){
@@ -179,7 +185,7 @@ function sel(key){
   cur=key;
   const d=data[key];
   const r=document.getElementById('r-'+key);
-  r.style.fill=d.fill;r.style.stroke=d.stroke;r.setAttribute('stroke-width','1.5');
+  r.style.fill=d.fill;r.style.stroke=d.stroke;r.setAttribute('stroke-width','1.8');
   const p1=document.getElementById('pulse-'+d.prefix+'-1');
   const p2=document.getElementById('pulse-'+d.prefix+'-2');
   const ps=document.getElementById('pulse-'+d.prefix+'-sm');
